@@ -7,7 +7,7 @@ using practicum_events.Interfaces;
 
 public class EventService : IEventService
 {
-    private Dictionary<Guid, Event> _events = new();
+    private static Dictionary<Guid, Event> _events = new();
     public IReadOnlyCollection<Event> Events => _events.Values.ToList().AsReadOnly();
 
     public List<EventDto> GetAll()
@@ -28,6 +28,7 @@ public class EventService : IEventService
         var entity = CastToEntity(dto);
         if (_events.ContainsKey(entity.Id))
             return null;
+
         _events[entity.Id] = entity;
         return dto;
     }
@@ -36,8 +37,6 @@ public class EventService : IEventService
     {
         if (id == default)
             return null;
-
-        //var entity = _events.FirstOrDefault(i => i.Id == id);
 
         if (_events.TryGetValue(id, out var entity))
         {
