@@ -1,0 +1,1 @@
+practicum-events project description
