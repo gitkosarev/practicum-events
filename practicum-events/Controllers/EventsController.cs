@@ -8,9 +8,16 @@ namespace practicum_events.Controllers;
 
 
 [ApiController]
-[Route("api/events")]
-public class EventController(IEventService _eventService) : ControllerBase
+[Route("api/[controller]")]
+public class EventsController : ControllerBase
 {
+    private readonly IEventService _eventService;
+
+    public EventsController(IEventService eventService)
+    {
+        _eventService = eventService;
+    }
+
     [HttpGet]
     public IActionResult GetAll()
     {

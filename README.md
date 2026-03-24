@@ -78,7 +78,7 @@ dotnet build
 
 ## 5. Запустите проект
 ```bash
-dotnet run --project /путь_к_проекту.csproj
+dotnet run --project practicum-events
 ```
 
 #### По умолчанию Web API будет доступен на:
