@@ -25,6 +25,9 @@ public class EventService : IEventService
 
     public EventDto? Create(EventDto dto)
     {
+        if (dto.Id == default)
+            dto.Id = Guid.NewGuid();
+
         var entity = CastToEntity(dto);
         if (_events.ContainsKey(entity.Id))
             return null;
@@ -38,14 +41,16 @@ public class EventService : IEventService
         if (id == default)
             return null;
 
-        if (_events.TryGetValue(id, out var entity))
-        {
-            entity.Title = dto.Title;
-            entity.Description = dto.Description;
-            entity.StartAt = dto.StartAt;
-            entity.EndAt = dto.EndAt;
+        var entity = CastToEntity(dto);
 
-            return CastToDTO(entity);
+        if (_events.TryGetValue(id, out var value))
+        {
+            value.Title = entity.Title;
+            value.Description = entity.Description;
+            value.StartAt = entity.StartAt;
+            value.EndAt = entity.EndAt;
+
+            return CastToDTO(value);
         }
         else
         {
@@ -79,15 +84,12 @@ public class EventService : IEventService
 
     private Event CastToEntity(EventDto dto)
     {
-        Guid id = (Guid)(dto.Id == null ? Guid.NewGuid() : dto.Id);
-        dto.Id = id;
-
         return new Event
         {
-            Id = id,
+            Id = dto.Id,
             Title = dto.Title,
-            StartAt = dto.StartAt,
-            EndAt = dto.EndAt,
+            StartAt = dto.StartAt ?? DateTime.MinValue,
+            EndAt = dto.EndAt ?? DateTime.MinValue,
             Description = dto.Description
         };
     }
