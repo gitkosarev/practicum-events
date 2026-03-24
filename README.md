@@ -63,16 +63,19 @@ dotnet --version
 ### 2. Клонируйте репозиторий
 ```bash
 git clone https://github.com/gitkosarev/practicum-events.git
-cd practicum-events
+git checkout -b sprint-1 origin/sprint-1
+git pull
 ```
 
 ## 3. Восстановите зависимости
 ```bash
+cd practicum-events
 dotnet restore
 ```
 
 ## 4. Соберите проект
 ```bash
+dotnet clean
 dotnet build
 ```
 
