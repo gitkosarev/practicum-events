@@ -47,4 +47,11 @@ public class EventController(IEventService _eventService) : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(Guid id)
+    {
+        bool result = _eventService.Delete(id);
+        return result? NoContent() : NotFound();
+    }
 }
