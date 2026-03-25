@@ -8,7 +8,7 @@ namespace practicum_events.Controllers;
 
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class EventsController : ControllerBase
 {
     private readonly IEventService _eventService;
